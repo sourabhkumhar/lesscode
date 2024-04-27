@@ -1,11 +1,3 @@
-const Functions = require("./functions");
-const Regex = require("./regex");
-const Constants = require("./constants");
-const Components = require("./components");
-
-module.exports = {
-  Functions,
-  Regex,
-  Constants,
-  Components,
-};
+export * as Functions from "./functions";
+export * as Regex from "./regex";
+export * as Constants from "./constants";

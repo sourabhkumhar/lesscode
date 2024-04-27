@@ -1,13 +1,13 @@
-const { defaultResponseMessage, successCode } = require("../constants");
-const {
+import { defaultResponseMessage, successCode } from "../constants";
+import {
   base64Regex,
   emailRegex,
   passwordRegex,
   urlRegex,
   usernameRegex,
-} = require("../regex");
-const jwt = require("jsonwebtoken");
-const CryptoJS = require("crypto-js");
+} from "../regex";
+import { sign, verify } from "jsonwebtoken";
+import { SHA256, enc, AES } from "crypto-js";
 
 /* Normal Functions Starts */
 const isURL = (url, useRegex) => {
@@ -54,15 +54,6 @@ const getImageType = async (imageData) => {
 };
 const isBase64 = (item) => {
   return base64Regex.test(item);
-};
-const getCommonItems = (selected, available) => {
-  // Create a Set from available for faster lookup
-  const availableSet = new Set(available);
-
-  // Use filter and Set.has for efficient intersection
-  const commonFiles = selected.filter((file) => availableSet.has(file));
-
-  return commonFiles;
 };
 const binarySearch = (sortedArr, target) => {
   let left = 0;
@@ -211,6 +202,13 @@ const convertCurrency = (from, to, value, rates) => {
     return undefined;
   }
 };
+const emptyArray = (num) => {
+  return Array.from(Array(num));
+};
+const extractGST = (finalAmount, gstRate) => {
+  const gstAmount = (finalAmount / (1 + gstRate / 100)) * (gstRate / 100);
+  return parseFloat(gstAmount.toFixed(2));
+};
 
 // Device Function
 const getDeviceType = () => {
@@ -272,6 +270,17 @@ const handleState = (setState, value, name, root) => {
 
   return Boolean(setState);
 };
+const getCommonArray = (uploaded, selected) => {
+  // Create a Set from uploaded for faster lookup
+  const uploadedSet = new Set(uploaded);
+
+  // Use filter and Set.has for efficient intersection
+  const commonFiles = selected.filter((elem) =>
+    uploadedSet.has(elem.toLowerCase())
+  );
+
+  return commonFiles;
+};
 /* Normal Functions Ends */
 
 /* API Functions Starts */
@@ -301,10 +310,7 @@ const encrypt = (value, SECRET_KEY) => {
     if (!value) {
       return null;
     }
-    return CryptoJS.AES.encrypt(
-      value,
-      SECRET_KEY || process.env.SECRET_KEY
-    ).toString();
+    return AES.encrypt(value, SECRET_KEY || process.env.SECRET_KEY).toString();
   } catch (error) {
     console.error("Encyption/Decrption Error: ", error.message);
   }
@@ -312,11 +318,8 @@ const encrypt = (value, SECRET_KEY) => {
 const decrypt = (hash, SECRET_KEY) => {
   try {
     if (!hash) return;
-    const bytes = CryptoJS.AES.decrypt(
-      hash,
-      SECRET_KEY || process.env.SECRET_KEY
-    );
-    return bytes.toString(CryptoJS.enc.Utf8);
+    const bytes = AES.decrypt(hash, SECRET_KEY || process.env.SECRET_KEY);
+    return bytes.toString(enc.Utf8);
   } catch (error) {
     console.error("Encyption/Decrption Error: ", error.message);
   }
@@ -326,29 +329,30 @@ const encryptSHA256 = (value) => {
     if (!value) {
       return null;
     }
-    return CryptoJS.SHA256(value).toString();
+    return SHA256(value).toString();
   } catch (error) {
     console.error("Encyption/Decrption Error: ", error.message);
   }
 };
 const jwtSign = (value, JWT_SECRET) => {
   try {
-    return jwt.sign(value, JWT_SECRET || process.env.JWT_SECRET);
+    return sign(value, JWT_SECRET || process.env.JWT_SECRET);
   } catch (error) {
     console.error("JWT error:", error.message);
   }
 };
 const jwtVerify = (value, JWT_SECRET) => {
   try {
-    return jwt.verify(value, JWT_SECRET || process.env.JWT_SECRET);
+    return verify(value, JWT_SECRET || process.env.JWT_SECRET);
   } catch (error) {
     console.error("JWT error:", error.message);
   }
 };
+
 /* Encryption Functions Ends */
 
 /* Exporting Functions */
-module.exports = {
+export {
   // Normal Function Export
   getDeviceType,
   getError,
@@ -357,7 +361,6 @@ module.exports = {
   isURL,
   getImageType,
   isBase64,
-  getCommonItems,
   binarySearch,
   isDate,
   formatCurrency,
@@ -366,6 +369,9 @@ module.exports = {
   validateInputs,
   getStringBool,
   convertCurrency,
+  emptyArray,
+  getCommonArray,
+  extractGST,
 
   //API Functions Export
   response,

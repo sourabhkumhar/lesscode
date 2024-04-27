@@ -1,4 +1,4 @@
-const defaultResponseMessage = {
+export const defaultResponseMessage = {
   100: "Continue",
   101: "Switching Protocols",
   102: "Processing",
@@ -62,8 +62,10 @@ const defaultResponseMessage = {
   510: "Not Extended",
   511: "Network Authentication Required",
 };
-const successCode = new Set([200, 201, 202, 203, 204, 205, 206, 207, 208, 226]);
-const months = [
+export const successCode = new Set([
+  200, 201, 202, 203, 204, 205, 206, 207, 208, 226,
+]);
+export const months = [
   { name: "January", short: "Jan" },
   { name: "February", short: "Feb" },
   { name: "March", short: "Mar" },
@@ -77,7 +79,7 @@ const months = [
   { name: "November", short: "Nov" },
   { name: "December", short: "Dec" },
 ];
-const genres = [
+export const genres = [
   { label: "Rock", value: "Rock" },
   { label: "Pop", value: "Pop" },
   { label: "Hip Hop", value: "Hip Hop" },
@@ -87,6 +89,26 @@ const genres = [
   { label: "Electronic", value: "Electronic" },
   { label: "R&B", value: "R&B" },
   { label: "Reggae", value: "Reggae" },
+  { label: "Acoustic", value: "Acoustic" },
+  { label: "Chill", value: "Chill" },
+  { label: "Trap", value: "Trap" },
+  { label: "Techno", value: "Techno" },
+  { label: "Dubstep", value: "Dubstep" },
+  { label: "House", value: "House" },
+  { label: "Grime", value: "Grime" },
+  { label: "Ambient House", value: "Ambient House" },
+  { label: "Drum and Bass", value: "Drum and Bass" },
+  { label: "Trance", value: "Trance" },
+  { label: "Electro", value: "Electro" },
+  { label: "Hardstyle", value: "Hardstyle" },
+  { label: "Psychedelic", value: "Psychedelic" },
+  { label: "Synthwave", value: "Synthwave" },
+  { label: "Industrial", value: "Industrial" },
+  { label: "Post-Rock", value: "Post-Rock" },
+  { label: "Shoegaze", value: "Shoegaze" },
+  { label: "Post-Punk", value: "Post-Punk" },
+  { label: "Dream Pop", value: "Dream Pop" },
+  { label: "Electropop", value: "Electropop" },
   { label: "Classical", value: "Classical" },
   { label: "Folk", value: "Folk" },
   { label: "Metal", value: "Metal" },
@@ -108,7 +130,7 @@ const genres = [
   { label: "Instrumental", value: "Instrumental" },
   { label: "Opera", value: "Opera" },
 ];
-const countries = [
+export const countries = [
   {
     id: 1,
     name: "Afghanistan",
@@ -1360,11 +1382,3 @@ const countries = [
     iso2: "SX",
   },
 ];
-
-module.exports = {
-  defaultResponseMessage,
-  successCode,
-  months,
-  genres,
-  countries,
-};
