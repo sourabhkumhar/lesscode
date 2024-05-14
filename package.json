@@ -1,6 +1,6 @@
 {
   "name": "next-lesscode",
-  "version": "3.0.0",
+  "version": "4.5.2",
   "private": false,
   "main": "index.js",
   "type": "module",
@@ -9,10 +9,14 @@
     "jsonwebtoken": "^9.0.2"
   },
   "devDependencies": {
+    "@types/crypto-js": "^4.2.2",
+    "@types/jsonwebtoken": "^9.0.6",
+    "@types/node": "^20.12.10",
     "eslint": "latest",
-    "eslint-config-next": "latest"
+    "eslint-config-next": "latest",
+    "typescript": "^5.4.5"
   },
-  "description": "This is a package to encaplulate irritating code into functions and regex and many more.",
+  "description": "This is a package to encapsulate irritating code into functions, regex, and many more.",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/makecoderun/code-less.git"
@@ -22,5 +26,11 @@
   "bugs": {
     "url": "https://github.com/makecoderun/code-less/issues"
   },
-  "homepage": "https://github.com/makecoderun/code-less#readme"
+  "homepage": "https://github.com/makecoderun/code-less#readme",
+  "files": [
+    "dist",
+    "functions",
+    "regex",
+    "constants"
+  ]
 }

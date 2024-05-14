@@ -1,3 +1,3 @@
-export * as Functions from "./functions";
-export * as Regex from "./regex";
-export * as Constants from "./constants";
+export * as functions from "./functions";
+export * as regex from "./regex";
+export * as constants from "./constants";
