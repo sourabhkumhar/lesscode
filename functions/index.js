@@ -320,17 +320,17 @@ const encryptSHA256 = (value) => {
         return null;
     }
 };
-const jwtSign = (value, JWT_SECRET) => {
+const jwtSign = (value, JWT_SECRET, options) => {
     try {
-        return sign(value, JWT_SECRET || process.env.JWT_SECRET || "");
+        return sign(value, JWT_SECRET || process.env.JWT_SECRET || "", options);
     }
     catch (error) {
         return "";
     }
 };
-const jwtVerify = (value, JWT_SECRET) => {
+const jwtVerify = (value, JWT_SECRET, options) => {
     try {
-        return verify(value, JWT_SECRET || process.env.JWT_SECRET || "");
+        return verify(value, JWT_SECRET || process.env.JWT_SECRET || "", options);
     }
     catch (error) {
         return null;

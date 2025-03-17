@@ -1,3 +1,4 @@
+import { SignOptions, VerifyOptions } from "jsonwebtoken";
 declare const isURL: (url: string, useRegex: boolean) => boolean;
 declare const getImageType: (imageData: string) => Promise<string | null>;
 declare const isBase64: (item: string) => boolean;
@@ -54,6 +55,6 @@ declare const allowedMethods: (req: any, res: any, methods?: string[]) => boolea
 declare const encrypt: (value: string, SECRET_KEY?: string) => string | null;
 declare const decrypt: (hash: string, SECRET_KEY?: string) => string | null;
 declare const encryptSHA256: (value: string) => string | null;
-declare const jwtSign: (value: string | object, JWT_SECRET?: string) => string;
-declare const jwtVerify: (value: string, JWT_SECRET?: string) => string | object | null;
+declare const jwtSign: (value: string | object, JWT_SECRET?: string, options?: SignOptions) => string;
+declare const jwtVerify: (value: string, JWT_SECRET?: string, options?: VerifyOptions) => string | object | null;
 export { getDeviceType, getError, errObj, handleState, isURL, getImageType, isBase64, binarySearch, isDate, formatCurrency, formatNumber, formatDate, validateInputs, getStringBool, convertCurrency, emptyArray, getCommonArray, extractGST, response, allowedMethods, encrypt, decrypt, encryptSHA256, jwtSign, jwtVerify, };

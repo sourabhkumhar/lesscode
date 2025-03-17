@@ -5,7 +5,7 @@ import {
   urlRegex,
   usernameRegex,
 } from "../regex/index";
-import { sign, verify } from "jsonwebtoken";
+import { sign, SignOptions, verify, VerifyOptions } from "jsonwebtoken";
 import { SHA256, enc, AES } from "crypto-js";
 import { defaultResponseMessage, successCode } from "../constants";
 
@@ -404,9 +404,13 @@ const encryptSHA256 = (value: string): string | null => {
   }
 };
 
-const jwtSign = (value: string | object, JWT_SECRET?: string): string => {
+const jwtSign = (
+  value: string | object,
+  JWT_SECRET?: string,
+  options?: SignOptions
+): string => {
   try {
-    return sign(value, JWT_SECRET || process.env.JWT_SECRET || "");
+    return sign(value, JWT_SECRET || process.env.JWT_SECRET || "", options);
   } catch (error) {
     return "";
   }
@@ -414,10 +418,11 @@ const jwtSign = (value: string | object, JWT_SECRET?: string): string => {
 
 const jwtVerify = (
   value: string,
-  JWT_SECRET?: string
+  JWT_SECRET?: string,
+  options?: VerifyOptions
 ): string | object | null => {
   try {
-    return verify(value, JWT_SECRET || process.env.JWT_SECRET || "");
+    return verify(value, JWT_SECRET || process.env.JWT_SECRET || "", options);
   } catch (error) {
     return null;
   }
