@@ -13,14 +13,9 @@ next.config.js
 # testing
 /coverage
 
-# src
-src/
-*.ts
-*.tsx
-*.map
-tests/
-.vscode/
-
+# next.js
+/.next/
+/out/
 
 # production
 /build

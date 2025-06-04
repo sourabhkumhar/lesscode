@@ -10,7 +10,7 @@ import { SHA256, enc, AES } from "crypto-js";
 import { defaultResponseMessage, successCode } from "../constants";
 
 /* Normal Functions Starts */
-const isURL = (url: string, useRegex?: boolean): boolean => {
+const isURL = (url: string, useRegex: boolean): boolean => {
   try {
     if (useRegex) {
       return urlRegex.test(url);
@@ -81,8 +81,8 @@ const isDate = (value: any | null): boolean => {
 };
 
 const formatCurrency = (
-  amount?: number,
-  currency?: string,
+  amount: number,
+  currency: string,
   options?: {
     removeDefaultUI?: boolean;
     showFreeOnZero?: boolean;
@@ -90,8 +90,10 @@ const formatCurrency = (
     minimumFractionDigits?: number;
   }
 ): string => {
-  if (amount === undefined) return "No Price";
-  if (amount === 0 && options?.showFreeOnZero) return "Free";
+  if (!options?.removeDefaultUI) {
+    if (isNaN(amount)) return "No Price";
+    if (amount === 0 && options?.showFreeOnZero) return "Free";
+  }
 
   const formatter = new Intl.NumberFormat(options?.locales || "en-IN", {
     style: "currency",
@@ -404,8 +406,8 @@ const encryptSHA256 = (value: string): string | null => {
 
 const jwtSign = (
   value: string | object,
-  options?: SignOptions,
-  JWT_SECRET?: string
+  JWT_SECRET?: string,
+  options?: SignOptions
 ): string => {
   try {
     return sign(value, JWT_SECRET || process.env.JWT_SECRET || "", options);
@@ -416,8 +418,8 @@ const jwtSign = (
 
 const jwtVerify = (
   value: string,
-  options?: VerifyOptions,
-  JWT_SECRET?: string
+  JWT_SECRET?: string,
+  options?: VerifyOptions
 ): string | object | null => {
   try {
     return verify(value, JWT_SECRET || process.env.JWT_SECRET || "", options);
